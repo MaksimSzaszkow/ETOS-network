@@ -1,0 +1,24 @@
+{
+  "devDependencies": {
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.3"
+  },
+  "name": "etos-network",
+  "version": "0.1.0",
+  "description": "Network with 2 nodes, each with LIFO priority queue",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaksimSzaszkow/ETOS-network.git"
+  },
+  "author": "Maksim Szaszkow",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MaksimSzaszkow/ETOS-network/issues"
+  },
+  "homepage": "https://github.com/MaksimSzaszkow/ETOS-network#readme"
+}
