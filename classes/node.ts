@@ -34,8 +34,6 @@ export default class Node {
   private handleQueue() {
     let bufferKey: "1" | "2" | "3" | undefined;
 
-    console.log(`${this.name}:`, this.buffers);
-
     if (this.buffers["1"].length > 0) bufferKey = "1";
     else if (this.buffers["2"].length > 0) bufferKey = "2";
     else if (this.buffers["3"].length > 0) bufferKey = "3";
@@ -46,10 +44,10 @@ export default class Node {
 
       setTimeout(() => {
         this.removePacket(lastPacket.priority);
-      }, lastPacket.size / 100);
+      }, lastPacket.size / 15);
     } else
       setTimeout(() => {
         this.handleQueue();
-      }, 1000);
+      }, 100);
   }
 }

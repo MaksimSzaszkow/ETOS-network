@@ -30,15 +30,13 @@ export default class Generator {
 
     this.destination = destination;
     this.neighbour = neighbour;
-
-    console.log(this);
   }
 
   start() {
     if (this.type === "ONOFF")
       setInterval(() => {
         this.createPackets();
-      }, parseInt(this.cycleTime) * 1000);
+      }, parseInt(this.cycleTime));
   }
 
   private createPackets() {
