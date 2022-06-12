@@ -42,5 +42,7 @@ export default class PrioNode {
         this.simulationTime = this.packets[0].arrivalTime;
       } else break;
     }
+
+    this.delayTime /= this.processedPackets.length;
   }
 }

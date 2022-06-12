@@ -1,5 +1,6 @@
 {
   "type": "POISSON",
+  "packetsPerGenerator": 5,
   "generator1": {
     "packetCount": 2,
     "meanServiceTime": 0.5,

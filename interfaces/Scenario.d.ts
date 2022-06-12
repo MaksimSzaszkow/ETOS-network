@@ -1,5 +1,6 @@
 export interface OnOffScenario {
   type: "ONOFF";
+  packetsPerGenerator: number;
   generator1: OnOffGeneratorConfig;
   generator2: OnOffGeneratorConfig;
   generator3: OnOffGeneratorConfig;
@@ -23,6 +24,7 @@ export interface OnOffGeneratorConfig {
 
 export interface PoissonScenario {
   type: "POISSON";
+  packetsPerGenerator: number;
   generator1: PoissonGeneratorConfgi;
   generator2: PoissonGeneratorConfgi;
   generator3: PoissonGeneratorConfgi;

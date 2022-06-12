@@ -26,7 +26,7 @@ for (let file of files) {
 
   mkdirSync(folderName);
 
-  const fields = [
+  const packetFields = [
     "id",
     "source",
     "arrivalTime",
@@ -35,34 +35,73 @@ for (let file of files) {
     "priority",
   ];
 
-  const parser = new Parser({ fields });
+  const packetParser = new Parser({ fields: packetFields });
 
-  writeFileSync(`${folderName}/g1.csv`, parser.parse(simulation.g1.packets));
-  writeFileSync(`${folderName}/g2.csv`, parser.parse(simulation.g2.packets));
-  writeFileSync(`${folderName}/g3.csv`, parser.parse(simulation.g3.packets));
+  writeFileSync(
+    `${folderName}/g1.csv`,
+    packetParser.parse(simulation.g1.packets)
+  );
+  writeFileSync(
+    `${folderName}/g2.csv`,
+    packetParser.parse(simulation.g2.packets)
+  );
+  writeFileSync(
+    `${folderName}/g3.csv`,
+    packetParser.parse(simulation.g3.packets)
+  );
   writeFileSync(
     `${folderName}/node1_lifo.csv`,
-    parser.parse(simulation.n1.processedPackets)
+    packetParser.parse(simulation.n1.processedPackets)
   );
   writeFileSync(
     `${folderName}/node2_lifo.csv`,
-    parser.parse(simulation.n2.processedPackets)
+    packetParser.parse(simulation.n2.processedPackets)
   );
   writeFileSync(
     `${folderName}/node1_prio.csv`,
-    parser.parse(simulation.n1prio.processedPackets)
+    packetParser.parse(simulation.n1prio.processedPackets)
   );
   writeFileSync(
     `${folderName}/node2_prio.csv`,
-    parser.parse(simulation.n2prio.processedPackets)
+    packetParser.parse(simulation.n2prio.processedPackets)
   );
 
-  console.log("N1 IDLE");
-  console.log(simulation.n1.idleTime);
-  console.log("N1 DELAY");
-  console.log(simulation.n1.delayTime);
-  console.log("N2 IDLE");
-  console.log(simulation.n2.idleTime);
-  console.log("N2 DELAY");
-  console.log(simulation.n2.delayTime);
+  const simulationFields = ["simulationTime", "idleTime", "delayTime"];
+  const simulationParser = new Parser({ fields: simulationFields });
+
+  writeFileSync(
+    `${folderName}/node1_lifo_simulation_stats.csv`,
+    simulationParser.parse({
+      simulationTime: simulation.n1.simulationTime,
+      idleTime: simulation.n1.idleTime,
+      delayTime: simulation.n1.delayTime,
+    })
+  );
+
+  writeFileSync(
+    `${folderName}/node1_prio_simulation_stats.csv`,
+    simulationParser.parse({
+      simulationTime: simulation.n1prio.simulationTime,
+      idleTime: simulation.n1prio.idleTime,
+      delayTime: simulation.n2prio.delayTime,
+    })
+  );
+
+  writeFileSync(
+    `${folderName}/node2_lifo_simulation_stats.csv`,
+    simulationParser.parse({
+      simulationTime: simulation.n2.simulationTime,
+      idleTime: simulation.n2.idleTime,
+      delayTime: simulation.n2.delayTime,
+    })
+  );
+
+  writeFileSync(
+    `${folderName}/node2_prio_simulation_stats.csv`,
+    simulationParser.parse({
+      simulationTime: simulation.n2prio.simulationTime,
+      idleTime: simulation.n2prio.idleTime,
+      delayTime: simulation.n2prio.delayTime,
+    })
+  );
 }

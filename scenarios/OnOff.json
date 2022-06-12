@@ -1,20 +1,21 @@
 {
   "type": "ONOFF",
+  "packetsPerGenerator": 5,
   "generator1": {
-    "packetCount": 2,
-    "meanServiceTime": 3,
-    "tonPacketAmount": 1,
+    "packetCount": 10,
+    "meanServiceTime": 0.25,
+    "tonPacketAmount": 5,
     "toffTime": 1,
     "priorities": "10% 20% 70%",
     "offset": 0
   },
   "generator2": {
-    "packetCount": 2,
-    "meanServiceTime": 2,
+    "packetCount": 1,
+    "meanServiceTime": 1,
     "tonPacketAmount": 1,
-    "toffTime": 1,
+    "toffTime": 3,
     "priorities": "10% 20% 70%",
-    "offset": 0.5
+    "offset": 1
   },
   "generator3": {
     "packetCount": 4,

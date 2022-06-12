@@ -16,7 +16,7 @@ export default class Simulator {
   n2prio;
 
   constructor(scenario: OnOffScenario | PoissonScenario) {
-    const packetsAmount = 5;
+    const packetsAmount = scenario.packetsPerGenerator;
     if (scenario.type === "ONOFF") {
       this.g1 = new OnOffGenerator(
         { ...scenario.generator1, source: 0 },
