@@ -4,6 +4,7 @@ import {
   writeFileSync,
   rmdirSync,
   mkdirSync,
+  existsSync,
 } from "node:fs";
 import Simulator from "./classes/Simulator";
 import { OnOffScenario, PoissonScenario } from "./interfaces/Scenario";
@@ -11,7 +12,7 @@ import { Parser } from "json2csv";
 
 const files = readdirSync("./scenarios");
 
-rmdirSync("./output", { recursive: true });
+if (existsSync("./output")) rmdirSync("./output", { recursive: true });
 mkdirSync("./output");
 
 for (let file of files) {
