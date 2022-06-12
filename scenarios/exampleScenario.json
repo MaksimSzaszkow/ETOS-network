@@ -1,8 +1,0 @@
-{
-  "g1Profile": "ONOFF 500 1 4 1024",
-  "g1Priorities": "80% | 10% | 10%",
-  "g2Profile": "ONOFF 800 1 1 1024",
-  "g2Priorities": "40% | 20% | 40%",
-  "g3Profile": "ONOFF 800 1 1 1024",
-  "g3Priorities": "80% | 10% | 10%"
-}

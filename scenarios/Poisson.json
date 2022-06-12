@@ -1,0 +1,21 @@
+{
+  "type": "POISSON",
+  "generator1": {
+    "packetCount": 1,
+    "meanServiceTime": 0.5,
+    "priorities": "10% 20% 70%",
+    "offset": 0
+  },
+  "generator2": {
+    "packetCount": 1,
+    "meanServiceTime": 0.5,
+    "priorities": "10% 20% 70%",
+    "offset": 0
+  },
+  "generator3": {
+    "packetCount": 1,
+    "meanServiceTime": 0.5,
+    "priorities": "10% 20% 70%",
+    "offset": 0
+  }
+}
