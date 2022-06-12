@@ -55,4 +55,13 @@ for (let file of files) {
     `${folderName}/node2_prio.csv`,
     parser.parse(simulation.n2prio.processedPackets)
   );
+
+  console.log("N1 IDLE");
+  console.log(simulation.n1.idleTime);
+  console.log("N1 DELAY");
+  console.log(simulation.n1.delayTime);
+  console.log("N2 IDLE");
+  console.log(simulation.n2.idleTime);
+  console.log("N2 DELAY");
+  console.log(simulation.n2.delayTime);
 }

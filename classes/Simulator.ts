@@ -48,49 +48,49 @@ export default class Simulator {
     this.n1 = new LifoNode(
       [...this.g1.packets, ...this.g2.packets].sort(
         (a, b) => a.arrivalTime - b.arrivalTime
-      ),
-      packetsAmount
+      )
     );
 
     this.n2 = new LifoNode(
       [
-        ...this.n1.finalPackets.map(
-          (packet) =>
-            new Packet(
-              packet.id,
-              packet.departureTime,
-              packet.serviceTime,
-              packet.priority,
-              packet.source
-            )
-        ),
+        ...this.n1.processedPackets
+          .filter((packet) => packet.source === 0)
+          .map(
+            (packet) =>
+              new Packet(
+                packet.id,
+                packet.departureTime,
+                packet.serviceTime,
+                packet.priority,
+                packet.source
+              )
+          ),
         ...this.g3.packets,
-      ].sort((a, b) => a.arrivalTime - b.arrivalTime),
-      packetsAmount
+      ].sort((a, b) => a.arrivalTime - b.arrivalTime)
     );
 
     this.n1prio = new PrioNode(
       [...this.g1.packets, ...this.g2.packets].sort(
         (a, b) => a.arrivalTime - b.arrivalTime
-      ),
-      packetsAmount
+      )
     );
 
     this.n2prio = new PrioNode(
       [
-        ...this.n1prio.finalPackets.map(
-          (packet) =>
-            new Packet(
-              packet.id,
-              packet.departureTime,
-              packet.serviceTime,
-              packet.priority,
-              packet.source
-            )
-        ),
+        ...this.n1prio.processedPackets
+          .filter((packet) => packet.source === 0)
+          .map(
+            (packet) =>
+              new Packet(
+                packet.id,
+                packet.departureTime,
+                packet.serviceTime,
+                packet.priority,
+                packet.source
+              )
+          ),
         ...this.g3.packets,
-      ].sort((a, b) => a.arrivalTime - b.arrivalTime),
-      packetsAmount
+      ].sort((a, b) => a.arrivalTime - b.arrivalTime)
     );
   }
 }

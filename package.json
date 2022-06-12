@@ -23,6 +23,7 @@
     "typescript": "^4.7.3"
   },
   "dependencies": {
-    "json2csv": "^5.0.7"
+    "json2csv": "^5.0.7",
+    "poisson-process": "^1.0.1"
   }
 }

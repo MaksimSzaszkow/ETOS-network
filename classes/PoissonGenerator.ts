@@ -1,5 +1,6 @@
 import { PoissonGeneratorConfgi } from "../interfaces/Scenario";
 import Packet from "./Packet";
+import poisson from "poisson-process";
 
 export default class PoissonGenerator {
   public packets: Packet[] = [];
@@ -26,7 +27,7 @@ export default class PoissonGenerator {
     let lastPacketTime = offset;
 
     for (let i = 0; i < packetsAmount; i++) {
-      let packetTime = lastPacketTime + this.poisson(1 / this.packetCount);
+      let packetTime = lastPacketTime + poisson.sample(1 / this.packetCount);
       const rand = Math.floor(Math.random() * 100);
       const priority =
         rand <= this.priorities[0] ? 0 : rand <= this.priorities[1] ? 1 : 2;
@@ -42,22 +43,6 @@ export default class PoissonGenerator {
       );
 
       lastPacketTime = packetTime;
-    }
-  }
-
-  poisson(a: number) {
-    let limit = Math.exp(-a);
-    var prod = Math.random();
-    var n = 0;
-    while (prod >= limit) {
-      prod *= Math.random();
-      n += 1;
-    }
-    let returnVal = n;
-    if (returnVal != 0) {
-      return returnVal;
-    } else {
-      return 1 / this.packetCount;
     }
   }
 }

@@ -4,15 +4,14 @@ export default class PrioNode {
   simulationTime = 0;
   packets;
   processedPackets: Packet[] = [];
-  finalPackets: Packet[] = [];
 
   idleTime = 0;
   delayTime = 0;
 
-  constructor(packets: Packet[], packetAmount: number) {
+  constructor(packets: Packet[]) {
     this.packets = packets;
 
-    while (this.finalPackets.length < packetAmount) {
+    while (this.packets.length) {
       const prio1InBuffer = this.packets.filter(
         (packet) =>
           packet.arrivalTime <= this.simulationTime && packet.priority === 0
@@ -36,11 +35,8 @@ export default class PrioNode {
         this.simulationTime += packet.serviceTime;
         packet.departureTime = this.simulationTime;
         this.processedPackets.push(packet);
-        if (packet.source === 0) {
-          this.delayTime +=
-            this.simulationTime - packet.arrivalTime - packet.serviceTime;
-          this.finalPackets.push(packet);
-        }
+        this.delayTime +=
+          this.simulationTime - packet.arrivalTime - packet.serviceTime;
       } else if (this.packets.length) {
         this.idleTime += this.packets[0].arrivalTime - this.simulationTime;
         this.simulationTime = this.packets[0].arrivalTime;
