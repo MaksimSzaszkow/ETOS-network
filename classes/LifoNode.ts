@@ -27,7 +27,7 @@ export default class LifoNode {
         packet.departureTime = this.simulationTime;
 
         this.processedPackets.push(packet);
-        if (packet.source === "g1") {
+        if (packet.source === 0) {
           this.delayTime +=
             this.simulationTime - packet.arrivalTime - packet.serviceTime;
           this.finalPackets.push(packet);

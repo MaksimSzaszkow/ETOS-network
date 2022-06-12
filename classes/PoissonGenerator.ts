@@ -32,7 +32,13 @@ export default class PoissonGenerator {
         rand <= this.priorities[0] ? 0 : rand <= this.priorities[1] ? 1 : 2;
 
       this.packets.push(
-        new Packet(packetTime, this.meanServiceTime, priority, this.source)
+        new Packet(
+          this.source * packetsAmount + i,
+          packetTime,
+          this.meanServiceTime,
+          priority,
+          this.source
+        )
       );
 
       lastPacketTime = packetTime;

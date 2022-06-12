@@ -43,7 +43,13 @@ export default class OnOffGenerator {
         rand <= this.priorities[0] ? 0 : rand <= this.priorities[1] ? 1 : 2;
 
       this.packets.push(
-        new Packet(packetTime, this.meanServiceTime, priority, this.source)
+        new Packet(
+          packetsAmount * this.source + i,
+          packetTime,
+          this.meanServiceTime,
+          priority,
+          this.source
+        )
       );
       packetsGenerated++;
 
