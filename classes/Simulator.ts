@@ -6,7 +6,6 @@ import PoissonGenerator from "./PoissonGenerator";
 import PrioNode from "./PrioNode";
 
 export default class Simulator {
-  finalPackets: Packet[] = [];
   g1;
   g2;
   g3;

@@ -71,9 +71,8 @@ for (let file of files) {
     "simulationTime",
     "idleTime",
     "delayTime",
-    "Ti",
-    "Tn",
     "Qn",
+    "AvgPacketCount",
   ];
   const simulationParser = new Parser({
     fields: simulationFields,
@@ -100,8 +99,7 @@ function getNodeStats(node: Node) {
     simulationTime: node.simulationTime,
     idleTime: node.idleTime,
     delayTime: node.delayTime,
-    Ti: node.Ti,
-    Tn: node.Tn,
     Qn: node.Qn,
+    AvgPacketCount: node.packetCountInBuffer,
   };
 }
