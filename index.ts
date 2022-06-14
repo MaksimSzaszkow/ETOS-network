@@ -68,8 +68,7 @@ for (let file of files) {
   );
 
   const simulationFields = [
-    "simulationTime",
-    "idleTime",
+    "server_utilization",
     "delayTime",
     "Qn",
     "AvgPacketCount",
@@ -96,8 +95,7 @@ for (let file of files) {
 
 function getNodeStats(node: Node) {
   return {
-    simulationTime: node.simulationTime,
-    idleTime: node.idleTime,
+    server_utilization: 1 - node.idleTime / node.simulationTime,
     delayTime: node.delayTime,
     Qn: node.Qn,
     AvgPacketCount: node.packetCountInBuffer,

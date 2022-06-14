@@ -1,0 +1,25 @@
+{
+  "type": "POISSON",
+  "packetsPerGenerator": 1000,
+  "generator1": {
+    "packetCount": 4,
+    "meanServiceTime": 0.01,
+    "tonPacketAmount": 1,
+    "toffTime": 0,
+    "priorities": "15% 25% 60%"
+  },
+  "generator2": {
+    "packetCount": 4,
+    "meanServiceTime": 0.01,
+    "tonPacketAmount": 1,
+    "toffTime": 0,
+    "priorities": "15% 25% 60%"
+  },
+  "generator3": {
+    "packetCount": 0.1,
+    "meanServiceTime": 0.5,
+    "tonPacketAmount": 1,
+    "toffTime": 0,
+    "priorities": "15% 25% 60%"
+  }
+}

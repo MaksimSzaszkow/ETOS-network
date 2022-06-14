@@ -14,8 +14,6 @@ export interface GeneratorConfig {
   // Priorities breakdown (in %)
   priorities: string;
   source: 0 | 1 | 2;
-  // Amount of time before 1st packet is generated
-  offset: number;
 }
 
 export interface OnOffGeneratorConfig extends GeneratorConfig {

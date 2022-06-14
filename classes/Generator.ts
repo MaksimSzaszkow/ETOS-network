@@ -8,7 +8,6 @@ export default class Generator {
   meanServiceTime;
   priorities;
   source;
-  offset;
 
   constructor(config: GeneratorConfig) {
     this.packetCount = config.packetCount;
@@ -19,6 +18,5 @@ export default class Generator {
         parseFloat(priority.substring(0, priority.length - 1))
       );
     this.source = config.source;
-    this.offset = config.offset;
   }
 }

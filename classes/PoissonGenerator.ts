@@ -7,11 +7,11 @@ export default class PoissonGenerator extends Generator {
   constructor(config: GeneratorConfig, packetsAmount: number) {
     super(config);
 
-    this.generatePackets(packetsAmount, config.offset);
+    this.generatePackets(packetsAmount);
   }
 
-  public generatePackets(packetsAmount: number, offset: number) {
-    let lastPacketTime = offset;
+  public generatePackets(packetsAmount: number) {
+    let lastPacketTime = Math.random() * this.meanServiceTime;
 
     for (let i = 0; i < packetsAmount; i++) {
       let packetTime = lastPacketTime + poisson.sample(1 / this.packetCount);

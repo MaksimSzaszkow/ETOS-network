@@ -8,7 +8,6 @@ export default class OnOffGenerator extends Generator {
 
     this.generatePackets(
       packetsAmount,
-      config.offset,
       config.tonPacketAmount,
       config.toffTime
     );
@@ -16,11 +15,11 @@ export default class OnOffGenerator extends Generator {
 
   public generatePackets(
     packetsAmount: number,
-    offset: number,
     TonPacketAmount: number,
     ToffTime: number
   ) {
-    let lastPacketTime = offset - 1 / this.packetCount;
+    let lastPacketTime =
+      Math.random() * this.meanServiceTime - 1 / this.packetCount;
     let packetsGenerated = 0;
 
     for (let i = 0; i < packetsAmount; i++) {
