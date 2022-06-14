@@ -9,6 +9,7 @@ import {
 import Simulator from "./classes/Simulator";
 import { OnOffScenario, PoissonScenario } from "./interfaces/Scenario";
 import { Parser } from "json2csv";
+import Node from "./classes/Node";
 
 const files = readdirSync("./scenarios");
 
@@ -66,42 +67,41 @@ for (let file of files) {
     packetParser.parse(simulation.n2prio.processedPackets)
   );
 
-  const simulationFields = ["simulationTime", "idleTime", "delayTime"];
-  const simulationParser = new Parser({ fields: simulationFields });
+  const simulationFields = [
+    "simulationTime",
+    "idleTime",
+    "delayTime",
+    "Ti",
+    "Tn",
+    "Qn",
+  ];
+  const simulationParser = new Parser({
+    fields: simulationFields,
+  });
 
-  writeFileSync(
-    `${folderName}/node1_lifo_simulation_stats.csv`,
-    simulationParser.parse({
-      simulationTime: simulation.n1.simulationTime,
-      idleTime: simulation.n1.idleTime,
-      delayTime: simulation.n1.delayTime,
-    })
-  );
+  const n1 = simulationParser.parse(getNodeStats(simulation.n1));
+  writeFileSync(`${folderName}/node1_lifo_simulation_stats.csv`, n1);
 
-  writeFileSync(
-    `${folderName}/node1_prio_simulation_stats.csv`,
-    simulationParser.parse({
-      simulationTime: simulation.n1prio.simulationTime,
-      idleTime: simulation.n1prio.idleTime,
-      delayTime: simulation.n2prio.delayTime,
-    })
-  );
+  const n1prio = simulationParser.parse(getNodeStats(simulation.n1prio));
+  writeFileSync(`${folderName}/node1_prio_simulation_stats.csv`, n1prio);
 
-  writeFileSync(
-    `${folderName}/node2_lifo_simulation_stats.csv`,
-    simulationParser.parse({
-      simulationTime: simulation.n2.simulationTime,
-      idleTime: simulation.n2.idleTime,
-      delayTime: simulation.n2.delayTime,
-    })
-  );
+  const n2 = simulationParser.parse(getNodeStats(simulation.n2));
+  writeFileSync(`${folderName}/node2_lifo_simulation_stats.csv`, n2);
 
+  const n2prio = simulationParser.parse(getNodeStats(simulation.n2prio));
   writeFileSync(
     `${folderName}/node2_prio_simulation_stats.csv`,
-    simulationParser.parse({
-      simulationTime: simulation.n2prio.simulationTime,
-      idleTime: simulation.n2prio.idleTime,
-      delayTime: simulation.n2prio.delayTime,
-    })
+    simulationParser.parse(n2prio)
   );
+}
+
+function getNodeStats(node: Node) {
+  return {
+    simulationTime: node.simulationTime,
+    idleTime: node.idleTime,
+    delayTime: node.delayTime,
+    Ti: node.Ti,
+    Tn: node.Tn,
+    Qn: node.Qn,
+  };
 }

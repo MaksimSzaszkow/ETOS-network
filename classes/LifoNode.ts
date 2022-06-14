@@ -16,5 +16,6 @@ export default class LifoNode extends Node {
     }
 
     this.delayTime /= this.processedPackets.length;
+    this.calculateQn();
   }
 }

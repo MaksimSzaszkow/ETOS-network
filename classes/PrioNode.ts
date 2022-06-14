@@ -26,5 +26,6 @@ export default class PrioNode extends Node {
     }
 
     this.delayTime /= this.processedPackets.length;
+    this.calculateQn();
   }
 }
