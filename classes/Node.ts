@@ -25,7 +25,9 @@ export default class Node {
       this.simulationTime += packet.serviceTime;
       packet.departureTime = this.simulationTime;
 
-      this.processedPackets.push(packet);
+      const newPacket = JSON.parse(JSON.stringify(packet));
+
+      this.processedPackets.push(newPacket);
       this.delayTime +=
         this.simulationTime - packet.arrivalTime - packet.serviceTime;
     } else {

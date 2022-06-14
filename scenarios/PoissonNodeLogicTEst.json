@@ -1,28 +1,22 @@
 {
-  "type": "ONOFF",
+  "type": "POISSON",
   "packetsPerGenerator": 4,
   "generator1": {
     "packetCount": 1,
     "meanServiceTime": 1,
-    "tonPacketAmount": 3,
-    "toffTime": 1,
     "priorities": "10% 20% 70%",
     "offset": 0
   },
   "generator2": {
     "packetCount": 1,
     "meanServiceTime": 1,
-    "tonPacketAmount": 1,
-    "toffTime": 1,
     "priorities": "10% 20% 70%",
     "offset": 0.5
   },
   "generator3": {
-    "packetCount": 4,
-    "meanServiceTime": 0.5,
-    "tonPacketAmount": 5,
-    "toffTime": 1,
+    "packetCount": 1,
+    "meanServiceTime": 1,
     "priorities": "10% 20% 70%",
-    "offset": 0.25
+    "offset": 1.5
   }
 }
