@@ -1,23 +1,10 @@
 import { OnOffGeneratorConfig } from "../interfaces/Scenario";
+import Generator from "./Generator";
 import Packet from "./Packet";
 
-export default class OnOffGenerator {
-  public packets: Packet[] = [];
-
-  private packetCount;
-  private meanServiceTime;
-  private priorities;
-  private source;
-
+export default class OnOffGenerator extends Generator {
   constructor(config: OnOffGeneratorConfig, packetsAmount: number) {
-    this.packetCount = config.packetCount;
-    this.meanServiceTime = config.meanServiceTime;
-    this.priorities = config.priorities
-      .split(" ")
-      .map((priority) =>
-        parseFloat(priority.substring(0, priority.length - 1))
-      );
-    this.source = config.source;
+    super(config);
 
     this.generatePackets(
       packetsAmount,

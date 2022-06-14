@@ -1,24 +1,11 @@
-import { PoissonGeneratorConfgi } from "../interfaces/Scenario";
 import Packet from "./Packet";
 import poisson from "poisson-process";
+import Generator from "./Generator";
+import { GeneratorConfig } from "../interfaces/Scenario";
 
-export default class PoissonGenerator {
-  public packets: Packet[] = [];
-
-  private packetCount;
-  private meanServiceTime;
-  private priorities;
-  private source;
-
-  constructor(config: PoissonGeneratorConfgi, packetsAmount: number) {
-    this.packetCount = config.packetCount;
-    this.meanServiceTime = config.meanServiceTime;
-    this.priorities = config.priorities
-      .split(" ")
-      .map((priority) =>
-        parseFloat(priority.substring(0, priority.length - 1))
-      );
-    this.source = config.source;
+export default class PoissonGenerator extends Generator {
+  constructor(config: GeneratorConfig, packetsAmount: number) {
+    super(config);
 
     this.generatePackets(packetsAmount, config.offset);
   }
