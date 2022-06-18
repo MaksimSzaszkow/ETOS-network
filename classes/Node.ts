@@ -6,7 +6,7 @@ export default class Node {
   processedPackets: Packet[] = [];
 
   idleTime = 0;
-  delayTime = 0;
+  packetWaitTime = 0;
   packetCountInBuffer = 0;
 
   Ti = 0;
@@ -28,56 +28,25 @@ export default class Node {
       const newPacket = JSON.parse(JSON.stringify(packet));
 
       this.processedPackets.push(newPacket);
-      this.delayTime +=
-        this.simulationTime - packet.arrivalTime - packet.serviceTime;
     } else {
       this.idleTime += this.packets[0].arrivalTime - this.simulationTime;
       this.simulationTime = this.packets[0].arrivalTime;
     }
   }
 
-  calculateQnAndAvgPacketCount() {
-    let lastDepartureTime = 0;
+  postSimulationStats() {
     this.processedPackets
-      .sort((a, b) => a.departureTime - b.departureTime)
-      .forEach((processedPacket) => {
-        const packetsInBuffer = this.processedPackets
-          .filter(
-            (packet) =>
-              packet.arrivalTime < processedPacket.departureTime &&
-              packet.departureTime > processedPacket.departureTime
-          )
-          .sort((a, b) => a.arrivalTime - b.arrivalTime);
+      .sort((a, b) => a.arrivalTime - b.arrivalTime)
+      .forEach((packet) => {
+        const packetsInBuffer = this.processedPackets.filter(
+          (p) =>
+            p.departureTime > packet.arrivalTime &&
+            p.arrivalTime <= packet.arrivalTime
+        );
 
-        let amountOfPacketsInBuffer = 0;
-
-        packetsInBuffer.forEach((bufferPacket, index) => {
-          amountOfPacketsInBuffer++;
-          let timeWindow = 0;
-
-          if (index < packetsInBuffer.length - 1) {
-            timeWindow =
-              Math.max(
-                packetsInBuffer[index + 1].arrivalTime,
-                lastDepartureTime
-              ) - Math.max(bufferPacket.arrivalTime, lastDepartureTime);
-          } else {
-            timeWindow =
-              Math.max(processedPacket.departureTime, lastDepartureTime) -
-              Math.max(bufferPacket.arrivalTime, lastDepartureTime);
-          }
-
-          if (timeWindow > 0) {
-            this.packetCountInBuffer += amountOfPacketsInBuffer;
-          }
-
-          this.Ti += timeWindow * amountOfPacketsInBuffer;
-          this.Tn += timeWindow;
-        });
-        lastDepartureTime = processedPacket.departureTime;
+        this.packetCountInBuffer += packetsInBuffer.length;
+        this.packetWaitTime +=
+          packet.departureTime - packet.arrivalTime - packet.serviceTime;
       });
-
-    this.packetCountInBuffer /= this.processedPackets.length;
-    this.Qn = this.Ti / this.Tn;
   }
 }

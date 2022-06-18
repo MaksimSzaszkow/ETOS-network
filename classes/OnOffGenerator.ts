@@ -3,48 +3,49 @@ import Generator from "./Generator";
 import Packet from "./Packet";
 
 export default class OnOffGenerator extends Generator {
-  constructor(config: OnOffGeneratorConfig, packetsAmount: number) {
+  TonPacketAmount;
+  ToffTime;
+  packetsGenerated = 0;
+
+  constructor(config: OnOffGeneratorConfig) {
     super(config);
 
-    this.generatePackets(
-      packetsAmount,
-      config.tonPacketAmount,
-      config.toffTime
-    );
+    this.TonPacketAmount = config.tonPacketAmount;
+    this.ToffTime = config.toffTime;
+
+    const mi = 1 / this.packetCount;
+    if (this.source === 0) this.lastPacketTime = -mi;
+    else
+      this.lastPacketTime =
+        Math.random() *
+          (this.TonPacketAmount / this.packetCount + this.ToffTime) -
+        mi;
   }
 
-  public generatePackets(
-    packetsAmount: number,
-    TonPacketAmount: number,
-    ToffTime: number
-  ) {
-    let lastPacketTime =
-      Math.random() * this.meanServiceTime - 1 / this.packetCount;
-    let packetsGenerated = 0;
+  public generateNext(id: number) {
+    const packetTime = this.lastPacketTime + this.mi;
 
-    for (let i = 0; i < packetsAmount; i++) {
-      let packetTime = lastPacketTime + 1 / this.packetCount;
-      const rand = Math.floor(Math.random() * 100);
-      const priority =
-        rand <= this.priorities[0] ? 0 : rand <= this.priorities[1] ? 1 : 2;
+    const rand = Math.floor(Math.random() * 100);
+    const priority =
+      rand <= this.priorities[0] ? 0 : rand <= this.priorities[1] ? 1 : 2;
 
-      this.packets.push(
-        new Packet(
-          packetsAmount * this.source + i,
-          packetTime,
-          this.meanServiceTime,
-          priority,
-          this.source
-        )
-      );
-      packetsGenerated++;
+    const packet = new Packet(
+      id,
+      packetTime,
+      this.meanServiceTime,
+      priority,
+      this.source
+    );
 
-      if (packetsGenerated == TonPacketAmount) {
-        lastPacketTime += ToffTime;
-        packetsGenerated = 0;
-      } else {
-        lastPacketTime = packetTime;
-      }
+    this.packetsGenerated++;
+
+    if (this.packetsGenerated === this.TonPacketAmount) {
+      this.lastPacketTime += this.ToffTime;
+      this.packetsGenerated = 0;
     }
+    if (this.ToffTime === 0) this.lastPacketTime = packetTime;
+    else this.lastPacketTime = packetTime;
+
+    return packet;
   }
 }

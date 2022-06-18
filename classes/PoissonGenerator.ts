@@ -4,11 +4,15 @@ import Generator from "./Generator";
 import { GeneratorConfig } from "../interfaces/Scenario";
 
 export default class PoissonGenerator extends Generator {
-  constructor(config: GeneratorConfig, packetsAmount: number) {
+  constructor(config: GeneratorConfig) {
     super(config);
 
-    this.generatePackets(packetsAmount);
+    this.mi = 1 / this.packetCount;
+    if (this.source === 0) this.lastPacketTime = -this.mi;
+    else this.lastPacketTime = Math.random() * this.mi;
   }
+
+  public generateNext(id: number) {}
 
   public generatePackets(packetsAmount: number) {
     let lastPacketTime = Math.random() * this.meanServiceTime;

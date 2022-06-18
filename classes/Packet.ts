@@ -10,7 +10,7 @@ export default class Packet {
     id: number,
     arrivalTime: number,
     serviceTime: number,
-    priority: number,
+    priority: 0 | 1 | 2,
     source: 0 | 1 | 2
   ) {
     this.id = id;

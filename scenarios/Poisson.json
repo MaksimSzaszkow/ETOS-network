@@ -1,23 +1,23 @@
 {
   "type": "POISSON",
-  "packetsPerGenerator": 1000,
+  "packetsPerGenerator": 10000,
   "generator1": {
-    "packetCount": 4,
-    "meanServiceTime": 0.01,
+    "packetCount": 400,
+    "meanServiceTime": 0.001,
     "tonPacketAmount": 1,
     "toffTime": 0,
     "priorities": "15% 25% 60%"
   },
   "generator2": {
-    "packetCount": 4,
-    "meanServiceTime": 0.01,
+    "packetCount": 400,
+    "meanServiceTime": 0.001,
     "tonPacketAmount": 1,
     "toffTime": 0,
     "priorities": "15% 25% 60%"
   },
   "generator3": {
-    "packetCount": 0.1,
-    "meanServiceTime": 0.5,
+    "packetCount": 5,
+    "meanServiceTime": 0.1,
     "tonPacketAmount": 1,
     "toffTime": 0,
     "priorities": "15% 25% 60%"

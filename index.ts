@@ -10,6 +10,7 @@ import Simulator from "./classes/Simulator";
 import { OnOffScenario, PoissonScenario } from "./interfaces/Scenario";
 import { Parser } from "json2csv";
 import Node from "./classes/Node";
+import PrioNode from "./classes/PrioNode";
 
 const files = readdirSync("./scenarios");
 
@@ -68,10 +69,9 @@ for (let file of files) {
   );
 
   const simulationFields = [
-    "server_utilization",
-    "delayTime",
-    "Qn",
+    "ServerUtilization",
     "AvgPacketCount",
+    "AvgWaitTime",
   ];
   const simulationParser = new Parser({
     fields: simulationFields,
@@ -91,13 +91,46 @@ for (let file of files) {
     `${folderName}/node2_prio_simulation_stats.csv`,
     simulationParser.parse(n2prio)
   );
+
+  const bufferFields = ["AvgPacketCount", "AvgWaitTime"];
+  const bufferParser = new Parser({
+    fields: bufferFields,
+  });
+
+  for (let i = 0; i < 3; i++) {
+    const bufferData = bufferParser.parse(
+      getBufferStats(simulation.n1prio, i as 0 | 1 | 2)
+    );
+    writeFileSync(
+      `${folderName}/node1_buffer${i}_simulation_stats.csv`,
+      bufferData
+    );
+  }
+
+  for (let i = 0; i < 3; i++) {
+    const bufferData = bufferParser.parse(
+      getBufferStats(simulation.n2prio, i as 0 | 1 | 2)
+    );
+    writeFileSync(
+      `${folderName}/node1_buffer${i}_simulation_stats.csv`,
+      bufferData
+    );
+  }
 }
 
 function getNodeStats(node: Node) {
   return {
-    server_utilization: 1 - node.idleTime / node.simulationTime,
-    delayTime: node.delayTime,
-    Qn: node.Qn,
-    AvgPacketCount: node.packetCountInBuffer,
+    ServerUtilization: 1 - node.idleTime / node.simulationTime,
+    AvgPacketCount: node.packetCountInBuffer / node.processedPackets.length,
+    AvgWaitTime: (node.packetWaitTime / node.processedPackets.length) * 2,
+  };
+}
+
+function getBufferStats(node: PrioNode, buffer: 0 | 1 | 2) {
+  return {
+    AvgPacketCount:
+      node.packetCountInBuffers[buffer] / node.packetCountPerBuffer[buffer],
+    AvgWaitTime:
+      node.packetWaitTimeBuffers[buffer] / node.packetCountPerBuffer[buffer],
   };
 }

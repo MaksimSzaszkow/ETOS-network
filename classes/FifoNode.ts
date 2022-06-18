@@ -1,7 +1,7 @@
 import Node from "./Node";
 import Packet from "./Packet";
 
-export default class LifoNode extends Node {
+export default class FifoNode extends Node {
   constructor(packets: Packet[]) {
     super(packets);
 
@@ -10,7 +10,7 @@ export default class LifoNode extends Node {
         (packet) => packet.arrivalTime <= this.simulationTime
       );
 
-      const packet = packetsInBuffer.pop();
+      const packet = packetsInBuffer.shift();
 
       this.processPacket(packet);
     }
