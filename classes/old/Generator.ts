@@ -1,5 +1,5 @@
 import Packet from "./Packet";
-import { GeneratorConfig } from "../interfaces/Scenario";
+import { GeneratorConfig } from "../../interfaces/Scenario";
 
 export default class Generator {
   packets: Packet[] = [];

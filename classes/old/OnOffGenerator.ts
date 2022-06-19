@@ -1,4 +1,4 @@
-import { OnOffGeneratorConfig } from "../interfaces/Scenario";
+import { OnOffGeneratorConfig } from "../../interfaces/Scenario";
 import Generator from "./Generator";
 import Packet from "./Packet";
 

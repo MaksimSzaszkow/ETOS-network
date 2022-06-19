@@ -6,11 +6,11 @@ import {
   mkdirSync,
   existsSync,
 } from "node:fs";
-import Simulator from "./classes/Simulator";
+import Simulator from "./classes/old/Simulator";
 import { OnOffScenario, PoissonScenario } from "./interfaces/Scenario";
 import { Parser } from "json2csv";
-import Node from "./classes/Node";
-import PrioNode from "./classes/PrioNode";
+import Node from "./classes/old/Node";
+import PrioNode from "./classes/old/PrioNode";
 
 const files = readdirSync("./scenarios");
 
@@ -134,3 +134,7 @@ function getBufferStats(node: PrioNode, buffer: 0 | 1 | 2) {
       node.packetWaitTimeBuffers[buffer] / node.packetCountPerBuffer[buffer],
   };
 }
+
+// import Simulator from "./classes/mm1/Simulator";
+
+// new Simulator().start();

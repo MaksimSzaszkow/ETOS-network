@@ -1,4 +1,4 @@
-import { OnOffScenario, PoissonScenario } from "../interfaces/Scenario";
+import { OnOffScenario, PoissonScenario } from "../../interfaces/Scenario";
 import LifoNode from "./LifoNode";
 import OnOffGenerator from "./OnOffGenerator";
 import Packet from "./Packet";
@@ -17,31 +17,13 @@ export default class Simulator {
   constructor(scenario: OnOffScenario | PoissonScenario) {
     const packetsAmount = scenario.packetsPerGenerator;
     if (scenario.type === "ONOFF") {
-      this.g1 = new OnOffGenerator(
-        { ...scenario.generator1, source: 0 },
-        packetsAmount
-      );
-      this.g2 = new OnOffGenerator(
-        { ...scenario.generator2, source: 1 },
-        packetsAmount
-      );
-      this.g3 = new OnOffGenerator(
-        { ...scenario.generator3, source: 2 },
-        packetsAmount
-      );
+      this.g1 = new OnOffGenerator({ ...scenario.generator1, source: 0 });
+      this.g2 = new OnOffGenerator({ ...scenario.generator2, source: 1 });
+      this.g3 = new OnOffGenerator({ ...scenario.generator3, source: 2 });
     } else {
-      this.g1 = new PoissonGenerator(
-        { ...scenario.generator1, source: 0 },
-        packetsAmount
-      );
-      this.g2 = new PoissonGenerator(
-        { ...scenario.generator2, source: 1 },
-        packetsAmount
-      );
-      this.g3 = new PoissonGenerator(
-        { ...scenario.generator3, source: 2 },
-        packetsAmount
-      );
+      this.g1 = new PoissonGenerator({ ...scenario.generator1, source: 0 });
+      this.g2 = new PoissonGenerator({ ...scenario.generator2, source: 1 });
+      this.g3 = new PoissonGenerator({ ...scenario.generator3, source: 2 });
     }
 
     this.n1 = new LifoNode(
