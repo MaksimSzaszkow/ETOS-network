@@ -138,6 +138,7 @@
 import SimulatorMM1 from "./classes/mm1/Simulator";
 import SimulatorLIFO from "./classes/lifo/Simulator";
 import SimulatorPRIO from "./classes/prio/Simulator";
+import SimulatorPRIOONOFF from "./classes/prioOnOff/Simulator";
 
 console.log("MM1:");
 new SimulatorMM1().start();
@@ -145,3 +146,5 @@ console.log("LIFO:");
 new SimulatorLIFO().start();
 console.log("PRIO:");
 new SimulatorPRIO().start();
+console.log("PRIO ONOFF:");
+new SimulatorPRIOONOFF().start();
