@@ -39,6 +39,10 @@ export default class Generator {
     if (this.generatedPackets % this.tonPackets === 0)
       this.lastPacketTime += this.toff;
 
-    return new Packet(this.meanServiceTime, this.lastPacketTime, priority);
+    return new Packet(
+      poisson.sample(this.meanServiceTime),
+      this.lastPacketTime,
+      priority
+    );
   }
 }

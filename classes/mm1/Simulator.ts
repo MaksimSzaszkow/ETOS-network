@@ -24,11 +24,10 @@ export default class Simulator {
       this.node.processPacket();
     }
 
-    console.log(`RO: ${1 - this.node.idleTime / this.node.simulationTime}`);
-    console.log(`AVG WAIT: ${this.node.waitTime / this.node.processedPackets}`);
-    console.log(
-      `AVG IN BUFFER: ${this.node.waitTime / this.node.simulationTime}`
-    );
+    return {
+      ro: 1 - this.node.idleTime / this.node.simulationTime,
+      avgWaitTime: this.node.waitTime / this.node.processedPackets,
+      avgPacketCount: this.node.waitTime / this.node.simulationTime,
+    };
   }
 }
-
