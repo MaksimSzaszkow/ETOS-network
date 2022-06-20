@@ -1,15 +1,14 @@
 import Packet from "./Packet";
 
 export default class Node {
-  buffor: Packet[] = [];
+  buffer: Packet[] = [];
   simulationTime = 0;
   waitTime = 0;
   idleTime = 0;
+  processedPackets = 0;
 
   processPacket() {
-    this.buffor = this.buffor.sort((a, b) => a.arrivalTime - b.arrivalTime);
-
-    const packet = this.buffor.shift();
+    const packet = this.buffer.shift();
 
     if (packet) {
       if (packet.arrivalTime < this.simulationTime) {
@@ -18,10 +17,11 @@ export default class Node {
         this.idleTime += packet.arrivalTime - this.simulationTime;
         this.simulationTime = packet.arrivalTime + packet.serviceTime;
       }
+
       this.waitTime +=
         this.simulationTime - packet.arrivalTime - packet.serviceTime;
-    }
 
-    return packet || new Packet(0, 0);
+      this.processedPackets++;
+    }
   }
 }
