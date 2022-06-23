@@ -2,7 +2,7 @@ import Generator from "./Generator";
 import Node from "./Node";
 
 export default class Simulator {
-  generator = new Generator(80, 0.01);
+  generator = new Generator(900, 0.001);
   node = new Node();
 
   start() {
