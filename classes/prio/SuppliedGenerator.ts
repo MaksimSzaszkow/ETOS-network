@@ -7,37 +7,42 @@ export default class SuppliedGenerator {
   meanServiceTime;
   generatedPackets = 0;
   source0GeneratedPackets = 0;
-  extraPackets: ExtraPacket[];
+  extraPackets0: ExtraPacket[];
+  extraPackets1: Packet[];
 
   lastPacketTime = 0;
 
   constructor(
     meanPacketCount: number,
     meanServiceTime: number,
-    extraPackets: ExtraPacket[]
+    extraPackets0: ExtraPacket[],
+    extraPackets1: Packet[]
   ) {
     this.meanPacketCount = meanPacketCount;
     this.meanServiceTime = meanServiceTime;
-    this.extraPackets = extraPackets;
+    this.extraPackets0 = extraPackets0;
+    this.extraPackets1 = extraPackets1;
   }
 
-  generateNext(limit: number) {
+  generateNext() {
     const newTime =
       this.lastPacketTime + poisson.sample(1 / this.meanPacketCount);
 
-    if (this.extraPackets.length && limit <= 0) {
-      this.lastPacketTime = this.extraPackets[0].arrivalTime;
+    if (this.extraPackets0.length && this.extraPackets1.length) {
+      this.generatedPackets++;
+      if (
+        this.extraPackets0[0].arrivalTime < this.extraPackets1[0].arrivalTime
+      ) {
+        this.source0GeneratedPackets++;
+        return this.extraPackets0.shift();
+      } else return this.extraPackets1.shift();
+    } else if (this.extraPackets0.length && !this.extraPackets1.length) {
       this.generatedPackets++;
       this.source0GeneratedPackets++;
-      return this.extraPackets.shift() as Packet;
-    } else {
+      return this.extraPackets0.shift();
+    } else if (!this.extraPackets0.length && this.extraPackets1.length) {
       this.generatedPackets++;
-      this.lastPacketTime = newTime;
-      return new Packet(
-        poisson.sample(this.meanServiceTime),
-        this.lastPacketTime,
-        1
-      );
+      return this.extraPackets1.shift();
     }
   }
 }

@@ -1,11 +1,11 @@
 export default class Packet {
   arrivalTime;
   serviceTime;
-  priority = 0;
+  source;
 
-  constructor(serviceTime: number, arrivalTime: number, priotiry: 0 | 1 | 2) {
+  constructor(serviceTime: number, arrivalTime: number, source: 0 | 1) {
     this.serviceTime = serviceTime;
     this.arrivalTime = arrivalTime;
-    this.priority = priotiry;
+    this.source = source;
   }
 }

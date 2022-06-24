@@ -60,37 +60,6 @@ export default class Simulator {
       if (this.node2.buffer.length) this.node2.processPacket();
     }
 
-    console.log({
-      node1: {
-        ro: 1 - this.node1.idleTime / this.node1.simulationTime,
-        avgWaitTime: this.node1.waitTime / this.node1.processedPackets,
-        avgPacketCount: this.node1.waitTime / this.node1.simulationTime,
-      },
-      node2: {
-        ro: 1 - this.node2.idleTime / this.node2.simulationTime,
-        avgWaitTime: this.node2.waitTime / this.node2.processedPackets,
-        avgPacketCount: this.node2.waitTime / this.node2.simulationTime,
-      },
-      bufferStats: {
-        // avgWaitTimePerPacket:
-        //   this.node2.extraPackets
-        //     .map(
-        //       (packet) =>
-        //         packet.arrivalTime -
-        //         packet.firstArrivalTime +
-        //         packet.departureTime -
-        //         packet.arrivalTime
-        //     )
-        //     .reduce((prev, current) => prev + current) /
-        //   this.node2.extraPackets.length /
-        //   2,
-        avgWaitTime:
-          (this.node1.waitTime / this.node1.processedPackets +
-            this.node2.waitTime / this.node2.processedPackets) /
-          2,
-      },
-    });
-
     return {
       node1: {
         ro: 1 - this.node1.idleTime / this.node1.simulationTime,

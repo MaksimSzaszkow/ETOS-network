@@ -5,36 +5,27 @@ export default class Generator {
   meanPacketCount;
   meanServiceTime;
   generatedPackets = 0;
-  priorities: number[];
-
+  source0GeneratedPackets = 0;
   lastPacketTime = 0;
 
-  constructor(
-    meanPacketCount: number,
-    meanServiceTime: number,
-    priorities: number[]
-  ) {
+  constructor(meanPacketCount: number, meanServiceTime: number) {
     this.meanPacketCount = meanPacketCount;
     this.meanServiceTime = meanServiceTime;
-    this.priorities = priorities;
   }
 
   generateNext() {
     this.lastPacketTime =
       this.lastPacketTime + poisson.sample(1 / this.meanPacketCount);
-
-    const rand = Math.random() * 1;
-
-    let priority: 0 | 1 | 2;
-    if (rand <= this.priorities[0]) priority = 0;
-    else if (rand <= this.priorities[0] + this.priorities[1]) priority = 1;
-    else priority = 2;
-
+    const source = Math.random() * 1 <= 0.5 ? 0 : 1;
     this.generatedPackets++;
+    if (source === 0) {
+      this.source0GeneratedPackets++;
+    }
+
     return new Packet(
       poisson.sample(this.meanServiceTime),
       this.lastPacketTime,
-      priority
+      source
     );
   }
 }

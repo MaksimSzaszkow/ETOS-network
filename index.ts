@@ -10,7 +10,7 @@ const lifo = [new SimulatorLIFO().start()];
 const prio = [new SimulatorPRIO().start()];
 const prioOnOff = [new SimulatorPRIOONOFF().start()];
 
-for (let i = 0; i < 99; i++) {
+for (let i = 0; i < 0; i++) {
   mm1.push(new SimulatorMM1().start());
   lifo.push(new SimulatorLIFO().start());
   prio.push(new SimulatorPRIO().start());
